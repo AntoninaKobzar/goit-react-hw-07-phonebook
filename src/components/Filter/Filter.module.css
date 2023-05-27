@@ -1,0 +1,12 @@
+.form__input {
+    margin-bottom: 12px;
+    margin-left: 16px;
+    height: 18px;
+    overflow: hidden;
+    border: 2px solid blue;
+    border-radius: 3px;
+}
+.form__label {
+    margin-left:16px;
+
+}
