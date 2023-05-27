@@ -1,8 +1,9 @@
 import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/contacts/contactsOperations';
+import { getContacts } from 'redux/contacts/contactsSelectors';
+import Notiflix from 'notiflix';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,6 @@ const ContactForm = () => {
     e.preventDefault();
     const inputName = e.currentTarget.name.value;
     const inputNumber = e.currentTarget.number.value;
-
     const data = {
       id: nanoid(),
       name: inputName,
@@ -20,11 +20,9 @@ const ContactForm = () => {
     };
     const normalizedFilter = inputName.toLowerCase();
     const stateNameArray = contacts.map(({ name }) => name.toLowerCase());
-
     !stateNameArray.includes(normalizedFilter)
       ? dispatch(addContact(data))
-      : console.error(`${data.name} is already in contacts.`);
-
+      : Notiflix.Notify.failure(`${data.name} is already in contacts.`);
     e.currentTarget.reset();
   };
 
